@@ -7,7 +7,7 @@ async function main(){
     try{
         await client.connect();
         //await addPlayer(client, newPlayer);
-        await lte5Walks(client);
+        //await getData(client);
     } catch (e) {
         console.error(e);
     } finally {
@@ -23,16 +23,23 @@ async function addPlayer(req, res, client) {
     return result;
 }
 
-async function updatePlayer(req, res, client) {
-    const result = await client.db("MyBaseballStats").collection("players").insertOne(newPlayer);
-    console.log(result);    
-    return result;
-}
+// async function updatePlayer(req, res, client) {
+//     const result = await client.db("MyBaseballStats").collection("players").insertOne(newPlayer);
+//     console.log(result);    
+//     return result;
+// }
 
-async function deletePlayer(req, res, client) {
-    const result = await client.db("MyBaseballStats").collection("players").insertOne(newPlayer);
-    console.log(result);    
-    return result;
+// async function deletePlayer(req, res, client) {
+//     const result = await client.db("MyBaseballStats").collection("players").insertOne(newPlayer);
+//     console.log(result);    
+//     return result;
+// }
+
+async function getData(req, res, client) {
+    const cursor = await client.db("MyBaseballStats").collection("players").find({});
+    const result = await cursor.toArray();
+    console.log(result);
+    //return result;
 }
 
 async function findMostHomeRuns(req, res, client) {
@@ -79,8 +86,8 @@ async function listDatabases(req, res, client){
 
 module.exports = {
     addPlayer,
-    updatePlayer,
-    deletePlayer,
+    // updatePlayer,
+    // deletePlayer,
     findMostHomeRuns,
     lte5Walks,
     avgBatSpeedDes,
